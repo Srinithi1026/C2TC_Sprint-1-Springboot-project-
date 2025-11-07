@@ -1,13 +1,14 @@
 package com.tnsif.StudentServices.service;
-import com.tnsif.StudentServices.entity.Student;
+
 
 import java.util.List;
-
+import com.tnsif.StudentServices.entity.Student;
 
 public interface StudentService {
-List<Student> listAll(); // findAll()
-Student getById(Long id); // findById()
-Student create(Student student); // save() – insert
-Student update(Long id, Student student);// save() – update
-void deleteById(Long id); // deleteById()
+
+    List<Student> getAllStudents();
+    Student getStudentById(int id);
+    Student addStudent(Student s);
+    Student updateStudent(int id, Student s);
+    void deleteStudent(int id);
 }

@@ -1,90 +1,65 @@
 package com.tnsif.StudentServices.entity;
-import com.tnsif.StudentServices.entity.Student;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "students")
+public class Student {
 
-import jakarta.persistence.*;
-@Column(name = "name", nullable = false)
-private String name; // 2️⃣
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    private int studentId;   // 1
 
+    @Column(name = "name")
+    private String name;     // 2
 
-@Email
-@NotBlank
-@Column(name = "email", unique = true, nullable = false)
-private String email; // 3️⃣
+    @Column(name = "email")
+    private String email;    // 3
 
+    @Column(name = "phone")
+    private String phone;    // 4
 
-@NotBlank
-@Column(name = "phone", length = 15)
-private String phone; // 4️⃣
+    @Column(name = "department")
+    private String department;   // 5
 
+    @Column(name = "year")
+    private int year;        // 6
 
-@NotBlank
-@Column(name = "department")
-private String department; // 5️⃣
+    @Column(name = "cgpa")
+    private double cgpa;     // 7
 
+    public Student() {}
 
-@Min(1) @Max(4)
-@Column(name = "year_of_study")
-private Integer year; // 6️⃣
+    public Student(int studentId, String name, String email, String phone,
+                   String department, int year, double cgpa) {
+        this.studentId = studentId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.department = department;
+        this.year = year;
+        this.cgpa = cgpa;
+    }
 
-
-@DecimalMin("0.0") @DecimalMax("10.0")
-@Column(name = "cgpa")
-private Double cgpa; // 7️⃣
-
-
-public Student() {}
-
-
-public Student(Long studentId, String name, String email, String phone, String department, Integer year, Double cgpa) {
-this.studentId = studentId;
-this.name = name;
-this.email = email;
-this.phone = phone;
-this.department = department;
-this.year = year;
-this.cgpa = cgpa;
-}
-
-
-public Long getStudentId() { return studentId; }
-public void setStudentId(Long studentId) { this.studentId = studentId; }
-
-
-public String getName() { return name; }
-public void setName(String name) { this.name = name; }
-
-
-public String getEmail() { return email; }
-public void setEmail(String email) { this.email = email; }
-
-
-public String getPhone() { return phone; }
-public void setPhone(String phone) { this.phone = phone; }
-
-
-public String getDepartment() { return department; }
-public void setDepartment(String department) { this.department = department; }
-
-
-public Integer getYear() { return year; }
-public void setYear(Integer year) { this.year = year; }
-
-
-public Double getCgpa() { return cgpa; }
-public void setCgpa(Double cgpa) { this.cgpa = cgpa; }
-
-
-@Override
-public String toString() {
-return "Student{" +
-"studentId=" + studentId +
-", name='" + name + '\'' +
-", email='" + email + '\'' +
-", phone='" + phone + '\'' +
-", department='" + department + '\'' +
-", year=" + year +
-", cgpa=" + cgpa +
-'}';
+    // Getters & Setters  
+    public int getStudentId() { return studentId; }
+    public void setStudentId(int studentId) { this.studentId = studentId; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
+    public double getCgpa() { return cgpa; }
+    public void setCgpa(double cgpa) { this.cgpa = cgpa; }
 }

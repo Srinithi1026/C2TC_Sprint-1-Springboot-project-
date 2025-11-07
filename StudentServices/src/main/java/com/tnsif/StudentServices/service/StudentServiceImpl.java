@@ -1,61 +1,48 @@
 package com.tnsif.StudentServices.service;
 
-import com.tnsif.StudentServices.entity.Student;
-
-import com.tnsif.StudentServices.repository.StudentRepository;
-import org.springframework.stereotype.Service;
-
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.tnsif.StudentServices.entity.Student;
+import com.tnsif.StudentServices.repository.StudentRepository;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    @Autowired
+    private StudentRepository repo;
 
-private final StudentRepository repo;
+    @Override
+    public List<Student> getAllStudents() {
+        return repo.findAll();
+    }
 
+    @Override
+    public Student getStudentById(int id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+    }
 
-public StudentServiceImpl(StudentRepository repo) {
-this.repo = repo;
-}
+    @Override
+    public Student addStudent(Student s) {
+        return repo.save(s);
+    }
 
+    @Override
+    public Student updateStudent(int id, Student s) {
+        Student existing = getStudentById(id);
+        existing.setName(s.getName());
+        existing.setEmail(s.getEmail());
+        existing.setPhone(s.getPhone());
+        existing.setDepartment(s.getDepartment());
+        existing.setYear(s.getYear());
+        existing.setCgpa(s.getCgpa());
+        return repo.save(existing);
+    }
 
-@Override
-public List<Student> listAll() {
-return repo.findAll();
-}
-
-
-@Override
-public Student getById(Long id) {
-return repo.findById(id)
-.orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
-}
-
-
-@Override
-public Student create(Student student) {
-student.setStudentId(null); // ensure insert
-return repo.save(student);
-}
-
-
-@Override
-public Student update(Long id, Student student) {
-Student existing = getById(id);
-existing.setName(student.getName());
-existing.setEmail(student.getEmail());
-existing.setPhone(student.getPhone());
-existing.setDepartment(student.getDepartment());
-existing.setYear(student.getYear());
-existing.setCgpa(student.getCgpa());
-return repo.save(existing);
-}
-
-
-@Override
-public void deleteById(Long id) {
-repo.deleteById(id);
-}
+    @Override
+    public void deleteStudent(int id) {
+        repo.deleteById(id);
+    }
 }
